@@ -2,6 +2,7 @@ django
 djangorestframework
 pytest
 pytest-django
+python-dotenv
 Faker
 autopep8
 psycopg2
