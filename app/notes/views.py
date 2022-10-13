@@ -32,7 +32,11 @@ class NotesDetails(APIView):
     def put(self, request, pk):
         note = Notes.objects.filter(pk=pk).first()
         serializer = NotesSerializer(note, request.data)
-        if (note and serializer.is_valid()):
+
+        if (note == None):
+            return Response("The requested note was not found or does not exists.", status=status.HTTP_404_NOT_FOUND)
+
+        if (serializer.is_valid()):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
