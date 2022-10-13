@@ -1,4 +1,3 @@
-from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 
@@ -9,7 +8,7 @@ class Notes(models.Model):
 
     class Meta:
         ordering = ('-created_at',)
-        verbose_name = 'Note',
+        verbose_name = 'Note'
         verbose_name_plural = 'Notes'
 
     def __str__(self):
