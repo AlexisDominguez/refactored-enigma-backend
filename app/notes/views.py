@@ -48,3 +48,11 @@ class NotesDetails(APIView):
             note.delete()
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response("The requested note was not found or does not exists.", status=status.HTTP_404_NOT_FOUND)
+
+
+class NotesByNotebook(APIView):
+    def get(self, request, notebook_id):
+        notes = Notes.objects.filter(
+            notebook=notebook_id).order_by('created_at')
+        serializer = NotesSerializer(notes, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
