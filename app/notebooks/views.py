@@ -91,3 +91,20 @@ class NotebooksDetails(APIView):
             notebook.delete()
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response("The requested notebook was not found or does not exists.", status=status.HTTP_404_NOT_FOUND)
+
+
+class NotebooksByPortfolio(APIView):
+    def get(self, request, portfolio_id):
+        """Gets all notebooks related to a portfolio by Portfolio ID
+
+        Args:
+            request (any): Data that cames from the request
+            portfolio_id (int): Public key (ID) of the portfolio
+
+        Returns:
+            Response: returns serializer data and http status
+        """
+        notebooks = Notebooks.objects.filter(
+            portfolio=portfolio_id).order_by('created_at')
+        serializer = NotebooksSerializer(notebooks, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
